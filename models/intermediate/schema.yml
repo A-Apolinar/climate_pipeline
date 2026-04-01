@@ -1,0 +1,32 @@
+version: 2
+
+
+models:
+  - name: int_temp_by_decade
+    description: "Intermediate models for the climate pipeline. This model aggregates the annual temperature anomalies into decadal averages."
+    columns:
+      - name: data_source
+        description: "Should never be null and only contain data from GCAG and GISTEMP"
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['GCAG', 'GISTEMP']
+      - name: decade_start
+        description: "Should never be null and should be the starting year of the decade (e.g., 1900, 1910, etc.). Starts from 1850 and goes up to the most recent decade."
+        data_tests:
+          - not_null
+      - name: avg_temp_anomaly_celsius
+        description: "Should never be null and represents the average temperature anomaly in Celsius per data source and decade."
+        data_tests:
+          - not_null
+
+
+
+
+
+
+
+
+
+

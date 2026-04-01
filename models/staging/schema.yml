@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: stg_global_temp_annual
+    description: "Staging models for the climate pipeline"
+    columns:
+      - name: data_source
+        description: "Should never be null and only contain data from GCAG and GISTEMP"
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['GCAG', 'GISTEMP']
+      - name: year
+        description: "Should never be null and should be unique for each data source"
+        tests:
+          - not_null
+      - name: temp_anomaly_celsius
+        description: "Should never be null and represents the temperature anomaly in Celsius"
+        tests:
+          - not_null

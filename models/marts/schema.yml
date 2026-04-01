@@ -1,0 +1,26 @@
+version: 2
+
+
+models:
+  - name: mart_trend_over_time
+    description: "This model calculates the change in average temperature anomaly from one decade to the next for each data source. It uses window functions to compare each decade's average with the previous decade's average."
+    columns:
+      - name: data_source
+        description: "Should not be null. The source of the temperature anomaly data (e.g., GCAG, GISTEMP)."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['GCAG', 'GISTEMP']
+      - name: decade_start
+        description: "Should not be null.The starting year of the decade (e.g., 1900, 1910, etc.)."
+        data_tests:
+          - not_null
+      - name: avg_temp_anomaly_celsius
+        description: "Should not be null. The average temperature anomaly in Celsius for the decade."
+        data_tests:
+          - not_null
+      - name: previous_decade_avg
+        description: "Can be null for first row. The average temperature anomaly in Celsius for the previous decade."
+      - name: temp_change_from_previous_decade
+        description: "Can be null for first row. The change in average temperature anomaly from the previous decade to the current decade in Celsius."
